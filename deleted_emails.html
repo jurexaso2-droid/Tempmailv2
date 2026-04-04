@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🗑️ Deleted Emails · Temporary Email</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slide { from{transform:translateY(18px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .slide-in { animation:slide 0.3s ease-out; }
+    .nb-hamburger { display:flex; flex-direction:column; justify-content:space-between; width:22px; height:16px; cursor:pointer; border:none; background:none; padding:2px; }
+    .nb-hamburger span { display:block; height:2px; border-radius:2px; background:#4f46e5; transition:all .3s ease; }
+    .nb-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nb-hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nb-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    #nb-menu { animation:nb-fadedown .2s ease-out; }
+    @keyframes nb-fadedown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    .nb-sender-badge { display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid #e0e7ff;border-radius:20px;padding:4px 10px 4px 6px;font-size:12px;font-weight:600;color:#312e81;white-space:nowrap; }
+    .nb-sender-logo { width:18px;height:18px;border-radius:50%;flex-shrink:0; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-red-50 min-h-screen">
+
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════════════════════ -->
+<style>
+  .nb-hamburger { display:flex; flex-direction:column; justify-content:space-between; width:22px; height:16px; cursor:pointer; border:none; background:none; padding:2px; }
+  .nb-hamburger span { display:block; height:2px; border-radius:2px; background:#4f46e5; transition:all .3s ease; }
+  .nb-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .nb-hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .nb-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  #nb-menu { animation:nb-fadedown .2s ease-out; }
+  @keyframes nb-fadedown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+  .nb-sender-badge { display:inline-flex; align-items:center; gap:5px; background:#fff; border:1.5px solid #e0e7ff; border-radius:20px; padding:4px 10px 4px 6px; font-size:12px; font-weight:600; color:#312e81; white-space:nowrap; transition:box-shadow .2s; }
+  .nb-sender-badge:hover { box-shadow:0 2px 8px rgba(99,102,241,0.18); }
+  .nb-sender-logo { width:18px; height:18px; border-radius:50%; flex-shrink:0; }
+</style>
+
+<header class="bg-white/80 backdrop-blur-xl shadow-sm border-b border-purple-100 sticky top-0 z-20">
+  <div class="px-4 max-w-6xl mx-auto">
+
+    <!-- ── Row 1: Logo · Balance · Hamburger ── -->
+    <div class="flex items-center justify-between py-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-base">📧</div>
+        <div>
+          <h1 class="text-lg font-bold text-gray-900 leading-none">Temporary Email</h1>
+          <p class="text-xs text-purple-500 leading-none mt-0.5">Temporary Email Service</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="add_funds.php" class="flex items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all group">
+          <span class="text-xs text-gray-500 hidden sm:inline">Balance:</span>
+          <span class="font-bold text-indigo-600">₱0.00</span>
+          <span class="text-xs bg-indigo-500 text-white px-1.5 py-0.5 rounded-md group-hover:bg-indigo-600 transition-all">+ Add</span>
+        </a>
+        <button id="nb-btn" class="nb-hamburger" aria-label="Toggle menu" onclick="nbToggle()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Row 2: OTP sender badges (only shown when emails exist) ── -->
+    
+    <!-- ── Row 3: Hamburger dropdown (hidden by default) ── -->
+    <div id="nb-menu" class="hidden border-t border-purple-100 py-3 space-y-1">
+      <a href="dashboard.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-indigo-50 text-gray-700 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-sm">📧</span> Dashboard
+      </a>
+      <a href="retrieve_email.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-purple-50 text-gray-700 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-purple-100 rounded-lg flex items-center justify-center text-sm">🔍</span> Retrieve Email
+      </a>
+      <a href="custom_domains.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-blue-50 text-gray-700 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center text-sm">🌐</span> Custom Domains
+      </a>
+      <a href="deleted_emails.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-red-50 text-gray-700 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-red-100 rounded-lg flex items-center justify-center text-sm">🗑️</span> Deleted Emails
+      </a>
+      <a href="add_funds.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-green-50 text-gray-700 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center text-sm">💳</span>
+        Add Funds <span class="ml-auto text-xs text-indigo-600 font-bold">₱0.00</span>
+      </a>
+            <a href="logout.php" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-red-50 text-red-600 font-medium transition-all text-sm">
+        <span class="w-7 h-7 bg-red-100 rounded-lg flex items-center justify-center text-sm">🚪</span> Logout
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<script>
+function nbToggle() {
+  var m = document.getElementById('nb-menu');
+  var b = document.getElementById('nb-btn');
+  var isHidden = m.classList.toggle('hidden');
+  b.classList.toggle('open', !isHidden);
+}
+document.addEventListener('click', function(e) {
+  var m = document.getElementById('nb-menu');
+  var b = document.getElementById('nb-btn');
+  if (m && b && !m.contains(e.target) && !b.contains(e.target)) {
+    m.classList.add('hidden');
+    b.classList.remove('open');
+  }
+});
+</script>
+<main class="p-4 max-w-3xl mx-auto mt-6">
+
+  <!-- Page header -->
+  <div class="mb-6 slide-in">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="w-10 h-10 bg-gradient-to-br from-red-400 to-rose-600 rounded-xl flex items-center justify-center text-xl shadow-md">🗑️</div>
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 leading-tight">Deleted Emails</h2>
+        <p class="text-sm text-gray-500">Your deleted temp addresses and their messages — restore anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  
+    <!-- Empty state -->
+  <div class="bg-white/80 backdrop-blur-sm rounded-2xl border border-red-100 shadow-sm p-12 text-center slide-in">
+    <div class="text-6xl mb-4">📭</div>
+    <h3 class="text-lg font-semibold text-gray-700 mb-1">No deleted emails</h3>
+    <p class="text-sm text-gray-400 mb-5">When you delete a temp address from your dashboard, it'll appear here as a backup.</p>
+    <a href="dashboard.php" class="inline-block bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition-all">
+      ← Back to Dashboard
+    </a>
+  </div>
+
+  
+</main>
+
+<script>
+function toggleMessages(id) {
+  var box   = document.getElementById('msgs-' + id);
+  var arrow = document.getElementById('arrow-' + id);
+  var open  = box.classList.toggle('hidden');
+  arrow.textContent = open ? '▶' : '▼';
+}
+</script>
+
+</body>
+</html>
